@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body div:first-child {
+    @apply min-h-screen
+  }
+  
+  p {
+    @apply text-base
+  }
+  
+}
+
+@layer components {
+  .h1, .h2, .h3 {
+    @apply font-serif
+  }
+  .h1, .h2 {
+    @apply font-bold
+  }
+  
+  .h1 {
+    @apply text-xl
+  }
+  
+  .h2 {
+    @apply text-lg
+  }
+  
+  .h3 {
+    @apply text-md
+  }
+  
+  .body-1 {
+    @apply text-base
+  }
+  
+  .body-2 {
+    @apply text-sm
+  }
+  
+  .btn-secondary {
+    @apply flex justify-center items-center h-12 w-[12.5rem] uppercase border border-grayish-dark-blue
+  }
+}
+
+@layer utilities {
+  .to-white {
+    @apply brightness-0 invert
+  }
+  
+}
