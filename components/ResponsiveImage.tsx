@@ -1,9 +1,31 @@
+import { useEffect, useState } from 'react'
+import { useRouter }           from 'next/router'
+
 interface Props {
   altText: string
   imageName: string
 }
 export default function ResponsiveImage({ altText, imageName }: Props) {
-  const pathPrefix = `images/homepage`
+  const [ page, setPage ] = useState ('');
+  const { pathname } = useRouter()
+  const pathPrefix = `images/${page}`
+
+  useEffect (() => {
+    let pageName = ''
+    switch (pathname) {
+      case '/':
+        pageName = 'homepage'
+        break
+      case '/portfolio':
+        pageName = 'portfolio'
+        break
+      case '/contact-me':
+        pageName = 'contact-'
+    }
+    setPage(pageName)
+  }, [ pathname ]);
+
+  if (!page) return null
   return (
     <picture className='w-full'>
       <source
