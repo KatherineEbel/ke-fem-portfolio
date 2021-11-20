@@ -42,11 +42,15 @@
   }
   
   .body-2 {
-    @apply text-sm
+    @apply text-sm opacity-80
   }
   
   .btn-secondary {
     @apply flex justify-center items-center h-12 w-[12.5rem] uppercase border border-grayish-dark-blue
+  }
+  
+  .project-nav-link {
+    @apply flex flex-col gap-4 border-t border-b border-grayish-dark-blue border-opacity-20 py-6
   }
 }
 
@@ -55,4 +59,7 @@
     @apply brightness-0 invert
   }
   
+  .section {
+    @apply flex flex-col gap-7 border-t border-b border-grayish-dark-blue border-opacity-20 py-8
+  }
 }

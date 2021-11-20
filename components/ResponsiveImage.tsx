@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
-import { useRouter }           from 'next/router'
+import { useRouter } from 'next/router'
 
 interface Props {
   altText: string
   imageName: string
 }
 export default function ResponsiveImage({ altText, imageName }: Props) {
-  const [ page, setPage ] = useState ('');
+  const [page, setPage] = useState('')
+  const [prefix, setPrefix] = useState(``)
   const { pathname } = useRouter()
-  const pathPrefix = `images/${page}`
 
-  useEffect (() => {
-    let pageName = ''
+  useEffect(() => {
+    let pageName
     switch (pathname) {
       case '/':
         pageName = 'homepage'
@@ -19,30 +19,30 @@ export default function ResponsiveImage({ altText, imageName }: Props) {
       case '/portfolio':
         pageName = 'portfolio'
         break
-      case '/contact-me':
-        pageName = 'contact-'
+      default:
+        pageName = 'detail'
     }
+    console.log(pageName)
     setPage(pageName)
-  }, [ pathname ]);
+    setPrefix(`/images/${pageName}`)
+  }, [pathname])
 
   if (!page) return null
   return (
-    <picture className='w-full'>
+    <picture className="w-full">
       <source
-        srcSet={`${pathPrefix}/desktop/image-${imageName}.jpg, ${pathPrefix}/desktop/image-${imageName}@2x.jpg 2x`}
+        srcSet={`${prefix}/desktop/image-${imageName}.jpg, ${prefix}/desktop/image-${imageName}@2x.jpg 2x`}
         media="(min-width: 1024px)"
       />
       <source
-        srcSet={`${pathPrefix}/tablet/image-${imageName}.jpg, ${pathPrefix}/tablet/image-${imageName}@2x.jpg 2x`}
+        srcSet={`${prefix}/tablet/image-${imageName}.jpg, ${prefix}/tablet/image-${imageName}@2x.jpg 2x`}
         media="(min-width: 768px)"
       />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        className='min-w-full object-cover'
-        srcSet={
-          `${pathPrefix}/mobile/image-${imageName}.jpg ${pathPrefix}/mobile/image-${imageName}@2x.jpg 2x`
-        }
-        src={`${pathPrefix}/mobile/image-${imageName}.jpg`}
+        className="min-w-full object-cover"
+        srcSet={`${prefix}/mobile/image-${imageName}.jpg ${prefix}/mobile/image-${imageName}@2x.jpg 2x`}
+        src={`${prefix}/mobile/image-${imageName}.jpg`}
         alt={altText}
       />
     </picture>
