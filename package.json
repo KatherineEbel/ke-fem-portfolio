@@ -9,11 +9,14 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@formspree/react": "^2.2.4",
     "next": "latest",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-toastify": "^8.1.0"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.3.4",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "12.0.0",
     "@testing-library/user-event": "13.2.1",

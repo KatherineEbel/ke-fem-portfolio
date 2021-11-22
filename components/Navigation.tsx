@@ -3,12 +3,7 @@ import menu from 'public/images/icons/hamburger.svg'
 import close from 'public/images/icons/close.svg'
 import { useEffect, useRef, useState } from 'react'
 import NavLink from './NavLink'
-
-const pages = {
-  Home: '/',
-  Portfolio: '/portfolio',
-  'Contact Me': '/contact-me',
-}
+import { pages } from '../lib/utils'
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -42,7 +37,7 @@ export default function Navigation() {
     <div className="relative text-xs text-white">
       <button
         ref={closeButton}
-        className="md:hidden transition duration-300"
+        className="md:hidden grow cyan-filter"
         onClick={() => setMenuOpen(!menuOpen)}
       >
         <Image src={menuOpen ? close : menu} alt="mobile menu" />
@@ -58,7 +53,13 @@ export default function Navigation() {
             className={`flex flex-col md:flex-row md:text-grayish-dark-blue items-center gap-8 py-8 bg-grayish-dark-blue md:bg-transparent`}
           >
             {Object.keys(pages).map((k) => (
-              <NavLink key={k} path={pages[k]} text={k} />
+              <NavLink
+                key={k}
+                path={pages[k]}
+                text={k}
+                showActive
+                onSelected={() => setMenuOpen(false)}
+              />
             ))}
           </ul>
         </nav>

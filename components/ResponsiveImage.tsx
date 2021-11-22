@@ -22,7 +22,6 @@ export default function ResponsiveImage({ altText, imageName }: Props) {
       default:
         pageName = 'detail'
     }
-    console.log(pageName)
     setPage(pageName)
     setPrefix(`/images/${pageName}`)
   }, [pathname])

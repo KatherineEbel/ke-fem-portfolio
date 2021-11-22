@@ -1,31 +1,40 @@
-import Image  from 'next/image'
-import Link   from 'next/link'
+import Image from 'next/image'
+import Link from 'next/link'
 import github from 'public/images/icons/github.svg'
 import linkedin from 'public/images/icons/linkedin.svg'
 import twitter from 'public/images/icons/twitter.svg'
 
-export default function SocialLinks () {
+interface Props {
+  filter?: boolean
+}
+export default function SocialLinks({ filter = false }: Props) {
+  const className = filter ? 'white-filter' : ''
   return (
-    <ul className='flex gap-4'>
+    <ul className="flex gap-4">
       <li>
-        <Link href='https://github.com'>
+        <Link href="https://github.com">
           <a>
-            <Image className='to-white' src={github} alt='Github logo'/>
+            <div className="relative grow cyan-filter">
+              <Image className={className} src={github} alt="Github logo" />
+            </div>
           </a>
         </Link>
       </li>
       <li>
-        <Link href='https://twitter.com'>
+        <Link href="https://twitter.com">
           <a>
-            <Image className='to-white' src={twitter} alt='Twitter logo'/>
+            <div className="relative grow cyan-filter">
+              <Image className={className} src={twitter} alt="Twitter logo" />
+            </div>
           </a>
         </Link>
-
       </li>
       <li>
-        <Link href='https://linkedin.com'>
+        <Link href="https://linkedin.com">
           <a>
-            <Image className='to-white' src={linkedin} alt='Linkedin logo'/>
+            <div className="relative grow cyan-filter">
+              <Image className={className} src={linkedin} alt="Linkedin logo" />
+            </div>
           </a>
         </Link>
       </li>
