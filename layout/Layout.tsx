@@ -11,7 +11,7 @@ export default function Layout({ children }: PropsWithChildren<any>) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Header />
-      <main className="px-8 md:px-10 md:mt-12 2xl:px-[9.75rem]">
+      <main className="px-8 md:px-10 md:mt-12 2xl:px-[9.75rem] max-w-screen-2xl place-self-center">
         {children}
       </main>
       <Footer />

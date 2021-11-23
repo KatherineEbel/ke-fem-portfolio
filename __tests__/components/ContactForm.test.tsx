@@ -3,24 +3,20 @@
  */
 
 import ContactForm from 'components/ContactForm'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import React from 'react'
 import userEvent from '@testing-library/user-event'
+import loadEnv from 'jest.setup'
+import fetch from 'isomorphic-unfetch'
 
-jest.mock('@formspree/react', () => ({
-  useForm() {
-    return [
-      {
-        submitting: false,
-        succeeded: false,
-        errors: [],
-      },
-      () => {},
-    ]
-  },
-}))
+jest.mock('isomorphic-unfetch')
+
+const fetchMock = fetch as jest.Mock
 
 describe('ContactForm', function () {
+  beforeAll(() => {
+    loadEnv()
+  })
   it(`has a name, email and messageField`, async () => {
     render(<ContactForm />)
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
@@ -80,5 +76,35 @@ describe('ContactForm', function () {
     expect(screen.queryAllByText('This field is required').length).toBe(0)
     userEvent.tab()
     expect(screen.getByRole('button', { name: /^send/i })).toBeEnabled()
+  })
+
+  it(`notifies user when email submitted successfully`, async () => {
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ message: 'Thank you' }),
+    })
+    render(<ContactForm />)
+    userEvent.type(screen.getByLabelText(/name/i), 'Jane')
+    userEvent.type(screen.getByLabelText(/email/i), 'jane@example.com')
+    userEvent.type(screen.getByLabelText(/message/i), 'Test message')
+    userEvent.click(screen.getByRole('button', { name: /^send/i }))
+    await waitFor(() => {
+      screen.getByText("Thank you Jane! I'll be in touch")
+    })
+  })
+
+  it(`notifies user if response not ok`, async () => {
+    fetchMock.mockResolvedValueOnce({
+      ok: false,
+      json: () => Promise.resolve({ error: 'Oops! Something went wrong' }),
+    })
+    render(<ContactForm />)
+    userEvent.type(screen.getByLabelText(/name/i), 'Jane')
+    userEvent.type(screen.getByLabelText(/email/i), 'jane@example.com')
+    userEvent.type(screen.getByLabelText(/message/i), 'Test message')
+    userEvent.click(screen.getByRole('button', { name: /^send/i }))
+    await waitFor(() => {
+      screen.getByText('Oops! Something went wrong')
+    })
   })
 })

@@ -22,12 +22,14 @@ export default function Navigation() {
     return () => document.removeEventListener('mousedown', mousedownListener)
   }, [menuOpen])
 
-  function handleWindowResize() {
+  useEffect(() => {
     setMenuOpen(window.innerWidth >= 768)
-  }
+  }, [])
 
   useEffect(() => {
-    handleWindowResize()
+    function handleWindowResize() {
+      setMenuOpen(window.innerWidth >= 768)
+    }
     window.addEventListener('resize', handleWindowResize)
     return () => window.removeEventListener('resize', handleWindowResize)
   }, [])

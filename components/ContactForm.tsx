@@ -4,9 +4,9 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { useForm } from '@formspree/react'
 import { FormErrors, FormFields, isValid, notify, validate } from 'lib/utils'
 import { ToastContainer } from 'react-toastify'
+import fetch from 'isomorphic-unfetch'
 
 export default function ContactForm() {
   const [form, setForm] = useState<Partial<FormFields>>({
@@ -14,9 +14,8 @@ export default function ContactForm() {
     email: '',
     message: '',
   })
-  const [{ submitting, succeeded }, handleSubmit] = useForm(
-    process.env.NEXT_PUBLIC_FORMSPREE_HASH,
-  )
+  const [submitting, setSubmitting] = useState(false)
+  const [succeeded, setSucceeded] = useState(false)
   const [errors, setErrors] = useState<FormErrors>({})
 
   const handleChange: ChangeEventHandler<
@@ -33,8 +32,29 @@ export default function ContactForm() {
   const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault()
     if (isValid(form, errors)) {
-      const response = await handleSubmit(e)
-      console.log(response)
+      setSubmitting(true)
+      try {
+        const response = await fetch('http://localhost:3000/api/send-message', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(form),
+        })
+        const data = await response.json()
+        if (!response.ok) {
+          if (data.errors) {
+            return setErrors(data.errorCode)
+          }
+          notify('error', 'Oops! Something went wrong')
+        } else {
+          setSucceeded(true)
+        }
+      } catch (e) {
+        notify('error', 'Oops! Something went wrong')
+      } finally {
+        setSubmitting(false)
+      }
     }
   }
 

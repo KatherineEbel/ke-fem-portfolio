@@ -31,7 +31,7 @@ const Home = () => (
         </div>
       </div>
       <div className="home-hero-text-wrapper">
-        <h2 className="h1 sm:mt-auto md:mt-14 md:w-3/4">
+        <h2 className="h1 sm:mt-auto md:w-5/6">
           Hey, I’m Alex Spencer and I love building beautiful websites
         </h2>
         <Link href={'#about-me'}>
