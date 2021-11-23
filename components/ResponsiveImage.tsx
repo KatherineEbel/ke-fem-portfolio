@@ -28,7 +28,7 @@ export default function ResponsiveImage({ altText, imageName }: Props) {
 
   if (!page) return null
   return (
-    <picture className="w-full">
+    <picture>
       <source
         srcSet={`${prefix}/desktop/image-${imageName}.jpg, ${prefix}/desktop/image-${imageName}@2x.jpg 2x`}
         media="(min-width: 1024px)"
@@ -39,7 +39,7 @@ export default function ResponsiveImage({ altText, imageName }: Props) {
       />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        className="min-w-full object-cover"
+        className="h-full min-w-full w-auto object-cover"
         srcSet={`${prefix}/mobile/image-${imageName}.jpg ${prefix}/mobile/image-${imageName}@2x.jpg 2x`}
         src={`${prefix}/mobile/image-${imageName}.jpg`}
         alt={altText}

@@ -62,13 +62,28 @@ module.exports = {
         'light-grey': '#EAEAEB',
         'very-light-grey': '#FAFAFA',
       },
+      gridTemplateColumns: {
+        'home-hero-md': '75% 1fr',
+        'home-hero': '40% 1fr',
+      },
       gridTemplateRows: {
+        detail: 'min-content min-content min-content',
+        'home-hero': '1fr 60%',
+        'home-hero-md': '1fr 46.5%',
         layout: 'min-content 1fr min-content',
       },
       outline: {
         cyan: '1px solid #5FB4A2',
         error: '1px solid #F43030',
       },
+    },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1440px',
+      '3xl': '1536px',
     },
   },
   variants: {

@@ -50,60 +50,60 @@ export default function ContactForm() {
   return (
     <>
       <form className="py-8" onSubmit={onSubmit} noValidate>
-        <fieldset className="flex flex-col gap-6 text-xs">
-          <legend className="h1 mb-6">Contact Me</legend>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              className="form-control"
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Jane Appleseed"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required
-            />
-            {errors.name && <p className="form-error">{errors.name}</p>}
+        <section className="flex flex-col lg:flex-row lg:justify-between gap-8">
+          <h3 className="h1 flex-[2]">Contact Me</h3>
+          <div className="flex flex-col gap-6 flex-[3]">
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input
+                className="form-control"
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Jane Appleseed"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                required
+              />
+              {errors.name && <p className="form-error">{errors.name}</p>}
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email Address</label>
+              <input
+                className="form-control"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="email@example.com"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                required
+              />
+              {errors.email && <p className="form-error">{errors.email}</p>}
+            </div>
+            <div className="form-group">
+              <label htmlFor="message">Message</label>
+              <textarea
+                className="form-control resize-none"
+                id="message"
+                name="message"
+                rows={3}
+                placeholder="How can I help?"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                required
+              />
+              {errors.message && <p className="form-error">{errors.message}</p>}
+            </div>
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={submitting || !isValid(form, errors)}
+            >
+              Send Message
+            </button>
           </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <input
-              className="form-control"
-              type="email"
-              id="email"
-              name="email"
-              placeholder="email@example.com"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required
-            />
-            {errors.email && <p className="form-error">{errors.email}</p>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="message">Message</label>
-            <textarea
-              className="form-control resize-none"
-              id="message"
-              name="message"
-              rows={3}
-              placeholder="How can I help?"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required
-            />
-            {errors.message && <p className="form-error">{errors.message}</p>}
-          </div>
-        </fieldset>
-        <button
-          className="btn btn-primary"
-          type="submit"
-          disabled={submitting || !isValid(form, errors)}
-        >
-          Send Message
-        </button>
+        </section>
       </form>
       <div className="h-0 fixed">
         <ToastContainer position="top-center" theme="colored" />

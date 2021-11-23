@@ -3,7 +3,7 @@ import menu from 'public/images/icons/hamburger.svg'
 import close from 'public/images/icons/close.svg'
 import { useEffect, useRef, useState } from 'react'
 import NavLink from './NavLink'
-import { pages } from '../lib/utils'
+import { pages } from 'lib/utils'
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -22,13 +22,12 @@ export default function Navigation() {
     return () => document.removeEventListener('mousedown', mousedownListener)
   }, [menuOpen])
 
+  function handleWindowResize() {
+    setMenuOpen(window.innerWidth >= 768)
+  }
+
   useEffect(() => {
-    function handleWindowResize() {
-      setMenuOpen(window.innerWidth >= 768)
-    }
-
     handleWindowResize()
-
     window.addEventListener('resize', handleWindowResize)
     return () => window.removeEventListener('resize', handleWindowResize)
   }, [])
@@ -45,7 +44,7 @@ export default function Navigation() {
       {menuOpen && (
         <nav
           ref={nav}
-          className={`fixed md:static uppercase right-8 w-56 md:w-auto mt-6 md:mt-0 transition duration-500 ${
+          className={`fixed md:static uppercase right-8 w-56 md:w-auto mt-6 md:mt-0 z-10 transition duration-500 ${
             menuOpen ? 'opacity-100 scale-1' : 'opacity-0 scale-0'
           }'`}
         >

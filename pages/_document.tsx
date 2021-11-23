@@ -12,7 +12,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="text-grayish-dark-blue font-sans">
+        <body className="min-w-screen min-h-screen text-grayish-dark-blue font-sans">
           <Main />
           <NextScript />
         </body>

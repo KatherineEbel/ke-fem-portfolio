@@ -21,21 +21,34 @@ const Home = () => (
       <title>Frontend Mentor | Minimalist Portfolio</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
-    <section className="flex flex-col gap-6">
-      <ResponsiveImage altText="Home office setup" imageName="homepage-hero" />
-      <h2 className="h1 pr-3">
-        Hey, I’m Alex Spencer and I love building beautiful websites
-      </h2>
-      <Link href={'#about-me'}>
-        <a className="btn btn-primary justify-start">
-          <span className="bg-black bg-opacity-10 relative w-16 h-12 flex flex-col justify-center items-center">
-            <Image className="gray-filter" src={downArrows} alt="scroll down" />
-          </span>
-          <span className="text-center text-xs uppercase text-white">
-            About me
-          </span>
-        </a>
-      </Link>
+    <section className="home-hero">
+      <div className="sm:row-span-full col-span-full">
+        <div className="flex-shrink-0 w-full">
+          <ResponsiveImage
+            altText="Home office setup"
+            imageName="homepage-hero"
+          />
+        </div>
+      </div>
+      <div className="home-hero-text-wrapper">
+        <h2 className="h1 sm:mt-auto md:mt-14 md:w-3/4">
+          Hey, I’m Alex Spencer and I love building beautiful websites
+        </h2>
+        <Link href={'#about-me'}>
+          <a className="btn btn-primary justify-start md:mt-auto">
+            <span className="bg-black bg-opacity-10 relative w-16 h-12 flex flex-col justify-center items-center">
+              <Image
+                className="gray-filter"
+                src={downArrows}
+                alt="scroll down"
+              />
+            </span>
+            <span className="text-center text-xs uppercase text-white">
+              About me
+            </span>
+          </a>
+        </Link>
+      </div>
     </section>
     <PageSection {...section} />
     <WorkWithMe />

@@ -41,7 +41,7 @@ export default function Portfolio({
         <title>Frontend Mentor | Portfolio</title>
       </Head>
       {sections.map((s) => (
-        <PageSection key={s.linkPath} {...s} />
+        <PageSection key={s.linkPath} {...s} reversed />
       ))}
       <WorkWithMe />
     </div>
