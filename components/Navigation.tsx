@@ -4,11 +4,13 @@ import close from 'public/images/icons/close.svg'
 import { useEffect, useRef, useState } from 'react'
 import NavLink from './NavLink'
 import { pages } from 'lib/utils'
+import { useRouter } from 'next/router'
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false)
   const nav = useRef<HTMLDivElement>()
   const closeButton = useRef<HTMLButtonElement>()
+  const router = useRouter()
 
   useEffect(() => {
     function mousedownListener(e) {
@@ -23,15 +25,25 @@ export default function Navigation() {
   }, [menuOpen])
 
   useEffect(() => {
-    setMenuOpen(window.innerWidth >= 768)
-  }, [])
+    if (window.innerWidth >= 768) {
+      setMenuOpen(true)
+    }
+  }, [router.asPath])
 
   useEffect(() => {
     function handleWindowResize() {
       setMenuOpen(window.innerWidth >= 768)
     }
+    function handleScroll() {
+      if (window.innerWidth >= 768) return
+      setMenuOpen(false)
+    }
     window.addEventListener('resize', handleWindowResize)
-    return () => window.removeEventListener('resize', handleWindowResize)
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('resize', handleWindowResize)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   return (
