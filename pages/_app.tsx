@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app'
 import Layout from 'layout/Layout'
-import 'styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
+import 'styles/global.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

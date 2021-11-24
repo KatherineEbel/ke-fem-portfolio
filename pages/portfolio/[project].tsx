@@ -39,14 +39,14 @@ export default function ProjectDetail({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="grid gap-10">
-      <header>
+      <header className="mb-20">
         <ResponsiveImage
           altText={`${project.name} screenshot`}
           imageName={project.screenshots.hero}
         />
       </header>
-      <div className="grid gap-10 lg:grid-rows-detail lg:gap-y-10">
-        <section className="section border-t-b lg:self-start">
+      <div className="grid gap-10 lg:grid-rows-detail lg:grid-cols-detail lg:gap-y-11">
+        <section className="section border-t-b lg:row-start-1 lg:col-start-1 lg:col-span-5 lg:self-start">
           <h2 className="h1 md:row-start-1 md:row-span-1 md:col-span-1">
             {project.name}
           </h2>
@@ -54,7 +54,7 @@ export default function ProjectDetail({
             {project.description}
           </p>
           <p className="text-cyan md:row-start-2 md:mr-8 font-bold text-xs">
-            <span className="block whitespace-nowrap">
+            <span className="block whitespace-nowrap lg:mb-4">
               {project.tags.slice(0, 2).join(' / ')}
             </span>
             <span>{project.tags.slice(2).join(' / ')}</span>
@@ -63,11 +63,11 @@ export default function ProjectDetail({
             Visit Website
           </a>
         </section>
-        <section className="flex flex-col gap-7 lg:row-start-1 lg:row-end-2 lg:col-start-2">
+        <section className="flex flex-col gap-7 lg:row-start-1 lg:row-end-2 lg:col-start-6 lg:col-span-full">
           <h3 className="h3">Project Background</h3>
           <p className="body-2">{project.background}</p>
         </section>
-        <section className="flex flex-col gap-8 lg:col-start-2 lg:row-start-2">
+        <section className="flex flex-col gap-8 lg:col-start-6 lg:col-span-full lg:row-start-2">
           <h3 className="h3 mb-2">Static Previews</h3>
           {Object.keys(project.screenshots)
             .filter((k) => k.includes('preview'))

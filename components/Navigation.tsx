@@ -14,8 +14,9 @@ export default function Navigation() {
 
   useEffect(() => {
     function mousedownListener(e) {
+      if (window.innerWidth >= 768 || closeButton.current.contains(e.target))
+        return
       if (menuOpen && nav.current && !nav.current.contains(e.target)) {
-        if (closeButton.current.contains(e.target)) return
         setMenuOpen(false)
       }
     }

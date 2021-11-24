@@ -44,7 +44,7 @@ export default function ContactForm() {
         const data = await response.json()
         if (!response.ok) {
           if (data.errors) {
-            return setErrors(data.errorCode)
+            return setErrors(data.errors)
           }
           notify('error', 'Oops! Something went wrong')
         } else {

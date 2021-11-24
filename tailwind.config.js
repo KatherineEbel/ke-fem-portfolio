@@ -65,6 +65,7 @@ module.exports = {
       gridTemplateColumns: {
         'home-hero-md': '75% 1fr',
         'home-hero': '40% 1fr',
+        detail: 'repeat(12, 1fr)'
       },
       gridTemplateRows: {
         detail: 'min-content min-content min-content',

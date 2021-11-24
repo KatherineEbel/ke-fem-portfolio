@@ -55,13 +55,13 @@
   
   .home-hero {
     @apply flex flex-col gap-6
-    sm:grid sm:gap-24 sm:gap-0 sm:grid-rows-home-hero-md sm:grid-cols-home-hero-md
+    md:grid md:gap-24 md:gap-0 md:grid-rows-home-hero-md md:grid-cols-home-hero-md
     lg:grid-cols-home-hero lg:grid-rows-home-hero lg:gap-0
   }
   
   .home-hero-text-wrapper {
     @apply flex flex-col gap-6 sm:row-start-2
-    sm:col-start-1 sm:col-end-2 sm:row-start-2 sm:bg-white
+    md:col-start-1 md:col-end-2 md:row-start-2 md:bg-white
     lg:col-start-1 lg:col-span-1 lg:row-start-2 lg:row-span-1
   }
   
@@ -141,4 +141,12 @@
     md:flex-none md:grid md:grid-rows-3 md:grid-cols-2 md:gap-y-4 md:gap-x-10
     lg:flex flex-col lg:row-span-3 lg:col-span-1
   }
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  background: #5FB4A2;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  background: #F43030;
 }
