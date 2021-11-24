@@ -34,13 +34,16 @@ export default function ContactForm() {
     if (isValid(form, errors)) {
       setSubmitting(true)
       try {
-        const response = await fetch('http://localhost:3000/api/send-message', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-message`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(form),
           },
-          body: JSON.stringify(form),
-        })
+        )
         const data = await response.json()
         if (!response.ok) {
           if (data.errors) {
