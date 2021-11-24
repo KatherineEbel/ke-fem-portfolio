@@ -79,6 +79,7 @@ export default function ContactForm() {
                 type="text"
                 id="name"
                 name="name"
+                value={form.name || ''}
                 placeholder="Jane Appleseed"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -93,6 +94,7 @@ export default function ContactForm() {
                 type="email"
                 id="email"
                 name="email"
+                value={form.email || ''}
                 placeholder="email@example.com"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -106,6 +108,7 @@ export default function ContactForm() {
                 className="form-control resize-none"
                 id="message"
                 name="message"
+                value={form.message || ''}
                 rows={3}
                 placeholder="How can I help?"
                 onChange={handleChange}

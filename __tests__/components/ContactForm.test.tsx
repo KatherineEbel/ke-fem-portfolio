@@ -8,14 +8,15 @@ import React from 'react'
 import userEvent from '@testing-library/user-event'
 import loadEnv from 'jest.setup'
 
+global.fetch = jest.fn()
+const fetchMock = global.fetch as jest.Mock
 describe('ContactForm', function () {
   beforeAll(() => {
     loadEnv()
-    global.fetch = jest.fn()
   })
 
   afterEach(() => {
-    ;(global.fetch as jest.Mock).mockClear()
+    fetchMock.mockClear()
   })
 
   afterAll(() => {
@@ -84,7 +85,7 @@ describe('ContactForm', function () {
   })
 
   it(`notifies user when email submitted successfully`, async () => {
-    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+    fetchMock.mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve({ message: 'Thank you' }),
     })
@@ -99,7 +100,7 @@ describe('ContactForm', function () {
   })
 
   it(`notifies user if response not ok`, async () => {
-    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+    fetchMock.mockResolvedValueOnce({
       ok: false,
       json: () => Promise.resolve({ error: 'Oops! Something went wrong' }),
     })
@@ -110,6 +111,26 @@ describe('ContactForm', function () {
     userEvent.click(screen.getByRole('button', { name: /^send/i }))
     await waitFor(() => {
       screen.getByText('Oops! Something went wrong')
+    })
+  })
+
+  it(`clears form after submitted`, async () => {
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ message: 'Thank you' }),
+    })
+    render(<ContactForm />)
+    const nameInput = screen.getByLabelText(/name/i)
+    const emailInput = screen.getByLabelText(/email/i)
+    const messageInput = screen.getByLabelText(/message/i)
+    userEvent.type(nameInput, 'Jane')
+    userEvent.type(emailInput, 'jane@example.com')
+    userEvent.type(messageInput, 'Test message')
+    userEvent.click(screen.getByRole('button', { name: /^send/i }))
+    await waitFor(() => {
+      expect(nameInput).toHaveValue('')
+      expect(emailInput).toHaveValue('')
+      expect(messageInput).toHaveValue('')
     })
   })
 })
