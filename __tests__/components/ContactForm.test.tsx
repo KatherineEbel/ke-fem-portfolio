@@ -7,16 +7,21 @@ import { render, screen, waitFor } from '@testing-library/react'
 import React from 'react'
 import userEvent from '@testing-library/user-event'
 import loadEnv from 'jest.setup'
-import fetch from 'isomorphic-unfetch'
-
-jest.mock('isomorphic-unfetch')
-
-const fetchMock = fetch as jest.Mock
 
 describe('ContactForm', function () {
   beforeAll(() => {
     loadEnv()
+    global.fetch = jest.fn()
   })
+
+  afterEach(() => {
+    ;(global.fetch as jest.Mock).mockClear()
+  })
+
+  afterAll(() => {
+    delete global.fetch
+  })
+
   it(`has a name, email and messageField`, async () => {
     render(<ContactForm />)
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
@@ -79,7 +84,7 @@ describe('ContactForm', function () {
   })
 
   it(`notifies user when email submitted successfully`, async () => {
-    fetchMock.mockResolvedValueOnce({
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve({ message: 'Thank you' }),
     })
@@ -94,7 +99,7 @@ describe('ContactForm', function () {
   })
 
   it(`notifies user if response not ok`, async () => {
-    fetchMock.mockResolvedValueOnce({
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
       json: () => Promise.resolve({ error: 'Oops! Something went wrong' }),
     })

@@ -6,7 +6,6 @@ import {
 } from 'react'
 import { FormErrors, FormFields, isValid, notify, validate } from 'lib/utils'
 import { ToastContainer } from 'react-toastify'
-import fetch from 'isomorphic-unfetch'
 
 export default function ContactForm() {
   const [form, setForm] = useState<Partial<FormFields>>({
@@ -34,16 +33,13 @@ export default function ContactForm() {
     if (isValid(form, errors)) {
       setSubmitting(true)
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-message`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(form),
+        const response = await fetch(`/api/send-message`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
+          body: JSON.stringify(form),
+        })
         const data = await response.json()
         if (!response.ok) {
           if (data.errors) {

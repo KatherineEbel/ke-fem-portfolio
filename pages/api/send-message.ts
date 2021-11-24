@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Mailgun from 'mailgun.js'
 import formData from 'form-data'
-import { validate } from '../../lib/utils'
+import { validate } from 'lib/utils'
 
 function getConfig() {
   const apiKey = process.env.MAILGUN_API_KEY
@@ -34,11 +34,10 @@ export default async function sendMessage(
     const { apiKey, domain } = getConfig()
     const mailgun = new Mailgun(formData)
     const mg = mailgun.client({ username: 'api', key: apiKey })
-    const { id, message } = await mg.messages.create(domain, data)
-    console.log(id)
+    const { message } = await mg.messages.create(domain, data)
     res.status(200).json({ message })
   } catch (e) {
-    console.log(e)
+    console.error(e)
     res.status(500).json({ error: 'Oops! Something went wrong' })
   }
 }
